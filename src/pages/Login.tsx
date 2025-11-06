@@ -3,18 +3,33 @@ import { api } from "@/utils/axios"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
+import { useNavigate } from "react-router-dom"
 
-export default function LoginPage() {
+export default function AuthPage() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const [error, setError] = useState("")
+    const navigate = useNavigate()
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault()
         try {
-            const { data } = await api.post("/api/login", { username, password })
-            console.log("Login success:", data)
+            await api.post("/api/login", { username, password })
+            setError("")
+            navigate("/home")
         } catch (err) {
-            console.error("Login failed:", err)
+            alert(`login failed: ${err}`)
+        }
+    }
+
+    const handleRegister = async (e: React.FormEvent) => {
+        e.preventDefault()
+        try {
+            await api.post("/api/register", { username, password })
+            setError("")
+            alert("Success Register Account, please login")
+        } catch (err) {
+            console.log("Register failed: ", err)
         }
     }
 
@@ -26,8 +41,6 @@ export default function LoginPage() {
                 </h1>
 
                 <form
-                    onSubmit={handleSubmit}
-                    method="post"
                     className="flex flex-col space-y-4"
                 >
                     <div className="space-y-2">
@@ -54,20 +67,22 @@ export default function LoginPage() {
                         />
                     </div>
 
-                    <Button
-                        type="submit"
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold"
-                    >
-                        Login
-                    </Button>
-                </form>
+                    <div className="flex w-full gap-3">
+                        <Button
+                            onClick={handleLogin}
+                            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold"
+                        >
+                            Login
+                        </Button>
 
-                <p className="text-sm text-gray-500 text-center mt-4">
-                    Don’t have an account?{" "}
-                    <a href="/register" className="text-blue-600 hover:underline">
-                        Register here
-                    </a>
-                </p>
+                        <Button
+                            onClick={handleRegister}
+                            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold"
+                        >
+                            Register
+                        </Button>
+                    </div>
+                </form>
             </div>
         </div>
     )
