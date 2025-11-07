@@ -1,16 +1,36 @@
-import { useState } from "react";
-import { Home, User, LogOut, Menu } from "lucide-react";
-import { NavLink } from "react-router-dom";
-import CreatePostButton from "./CreatePost";
+import { useState, useEffect } from "react"
+import { Link, useLocation } from "react-router-dom"
+import { Home, LogOut, Menu, User } from "lucide-react"
+import CreatePostButton from "./CreatePost"
 
 export default function Sidebar() {
-    const [open, setOpen] = useState(false);
-    const [active, setActive] = useState(0);
+    const location = useLocation()
+    const [open, setOpen] = useState(true)
+    const [active, setActive] = useState(location.pathname)
 
     const menuItems = [
         { name: "Feed", path: "/home", icon: <Home size={20} /> },
         { name: "Follow", path: "/follow", icon: <User size={20} /> }
-    ];
+    ]
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth >= 768) {
+                setOpen(true)
+            } else {
+                setOpen(false)
+            }
+        }
+
+        handleResize()
+
+        window.addEventListener("resize", handleResize)
+        return () => window.removeEventListener("resize", handleResize)
+    }, [])
+
+    useEffect(() => {
+        setActive(location.pathname)
+    }, [location.pathname])
 
     return (
         <div
@@ -32,12 +52,12 @@ export default function Sidebar() {
                 </div>
 
                 <nav className="flex flex-col gap-3">
-                    {menuItems.map((item, idx) => (
-                        <NavLink key={idx} to={item.path}>
+                    {menuItems.map((item) => (
+                        <Link key={item.path} to={item.path}>
                             <button
-                                onClick={() => setActive(idx)}
+                                onClick={() => setActive(item.path)}
                                 className={`flex items-center gap-3 w-full p-3 rounded-lg overflow-hidden whitespace-nowrap 
-                                ${active === idx
+                                ${active === item.path
                                         ? "bg-blue-600 text-white"
                                         : "hover:bg-gray-800 text-gray-400"
                                     }`
@@ -51,7 +71,7 @@ export default function Sidebar() {
                                 )}
 
                             </button>
-                        </NavLink>
+                        </Link>
                     ))}
                     <CreatePostButton isOpen={open} />
                 </nav>
@@ -65,9 +85,12 @@ export default function Sidebar() {
                 >
                     <span><LogOut size={20} /></span>
                     {open && (
+                        <Link to={"/auth"}>
                         <span className="text-sm font-medium transition-all duration-200">
                             logout
-                        </span>)
+                            </span>
+                        </Link>
+                    )
                     }
                 </button>
             </div>
