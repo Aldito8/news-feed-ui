@@ -47,7 +47,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             await register({ username, password })
             alert("Registrasi berhasil! Silakan login.")
         } catch (err: any) {
-            setError(err.response?.data?.message || "Register failed")
+            setError(err.response?.data?.error)
+            console.log(err)
         } finally {
             setLoading(false)
         }

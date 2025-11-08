@@ -8,18 +8,22 @@ import { api } from "@/utils/axios"
 export default function CreatePostButton({ isOpen }: { isOpen: boolean }) {
     const [open, setOpen] = useState(false)
     const [content, setContent] = useState("")
+    const [error, setError] = useState("")
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        const data = await api.post('/api/posts', {
-            content
-        })
-
-        console.log(data)
-        setOpen(false)
-        setContent("")
+        try {
+            await api.post('/api/posts', {
+                content
+            })
+            setOpen(false)
+            setError("")
+            setContent("")
+        } catch (error: any) {
+            console.log(error.response.data.error)
+            setError(error.response.data.error)
+        }
     }
-
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
@@ -51,8 +55,9 @@ export default function CreatePostButton({ isOpen }: { isOpen: boolean }) {
                         required
                     />
 
+                    {error && <p className="text-red-500 text-sm">{error}</p>}
                     <div className="flex justify-end gap-2 pt-4">
-                        <Button type="button" variant="outline" onClick={() => setOpen(false)}>
+                        <Button type="submit" variant="outline">
                             Cancel
                         </Button>
                         <Button type="submit">Publish</Button>
