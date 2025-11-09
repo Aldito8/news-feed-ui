@@ -1,4 +1,4 @@
-# Ganapatih Feed UI
+# News Feed UI
 
 A modern, responsive frontend application for a social media feed platform built with React and TypeScript. This UI provides an intuitive interface for users to view feeds, manage followers, create posts, and authenticate securely.
 
@@ -80,26 +80,6 @@ A modern, responsive frontend application for a social media feed platform built
 3. **Follow**: Manage your network at `/follow`, switching between followers and followees.
 4. **Create Post**: Use the "CreatePost" button in the sidebar to add new content.
 5. **Navigation**: Use the collapsible sidebar to navigate between sections.
-
-## Project Structure
-
-```
-src/
-├── components/
-│   ├── auth/          # Authentication components (AuthForm, AuthInput, etc.)
-│   ├── feed/          # Feed-related components (FeedList, FeedItem, etc.)
-│   ├── follow/        # Follow system components (FollowTabs, FollowList, etc.)
-│   ├── layout/        # Layout components (Sidebar, CreatePost)
-│   └── ui/            # Reusable UI components (Button, Input, Dialog, etc.)
-├── context/           # React contexts (AuthContext)
-├── hooks/             # Custom hooks (useAuth, useFeed, useFollow)
-├── pages/             # Page components (Home, Follow, Auth, AppLayout)
-├── router/            # Routing configuration (Router, PrivateRoute)
-├── services/          # API service functions (auth, feed, follow)
-├── types/             # TypeScript type definitions
-├── utils/             # Utility functions (axios setup)
-└── lib/               # Library utilities (cn function for class merging)
-```
 
 ## API Integration
 
