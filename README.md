@@ -56,6 +56,11 @@ A modern, responsive frontend application for a social media feed platform built
    ```
    The app will be available at `http://localhost:5173`.
 
+5. backend repository
+   ```bash
+   https://github.com/Aldito8/news-feed-api.git
+   ```
+
 ### Docker Setup
 
 1. Build the Docker image:
