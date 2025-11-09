@@ -60,19 +60,7 @@ A modern, responsive frontend application for a social media feed platform built
    ```bash
    https://github.com/Aldito8/news-feed-api.git
    ```
-
-### Docker Setup
-
-1. Build the Docker image:
-   ```bash
-   docker build -t ganapatih-feed-ui .
-   ```
-
-2. Run the container:
-   ```bash
-   docker run -p 5173:5173 ganapatih-feed-ui
-   ```
-
+   
 ## Usage
 
 1. **Authentication**: Navigate to `/auth` to login or register.
