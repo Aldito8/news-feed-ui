@@ -30,10 +30,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             setLoading(true)
             setError("")
             await login({ username, password })
-            const res = await api.get("/api/me") // ambil data user dari cookie
+            const res = await api.get("/api/me") 
             setUser(res.data.user)
         } catch (err: any) {
-            setError(err.response?.data?.message || "Login failed")
+            setError(err.response?.data?.error || "Login failed")
             setUser(null)
         } finally {
             setLoading(false)

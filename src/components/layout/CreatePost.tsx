@@ -57,7 +57,15 @@ export default function CreatePostButton({ isOpen }: { isOpen: boolean }) {
 
                     {error && <p className="text-red-500 text-sm">{error}</p>}
                     <div className="flex justify-end gap-2 pt-4">
-                        <Button type="submit" variant="outline">
+                        <Button
+                            type="button"
+                            onClick={() => {
+                                setOpen(false)
+                                setContent("")
+                                setError("")
+                            }}
+                            variant="outline"
+                        >
                             Cancel
                         </Button>
                         <Button type="submit">Publish</Button>
